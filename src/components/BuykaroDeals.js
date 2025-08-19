@@ -1,23 +1,89 @@
 import React from 'react';
-const deals_buykaro = [
-    { name: 'Whisky smoke & mafia combo 50ml each', price: '₹427', oldPrice: '₹1498', image: 'https://placehold.co/250x250/fafafa/000?text=Perfume' },
-    { name: 'Charcoal facewash & peel off mask combo', price: '₹170', oldPrice: '₹608', image: 'https://placehold.co/250x250/fafafa/000?text=Facewash' },
-    { name: 'Aircase vegan leather travel kit', price: '₹189', oldPrice: '₹999', image: 'https://placehold.co/250x250/fafafa/000?text=Travel+Kit' },
-    { name: 'Charcoal facewash & peel off mask combo', price: '₹170', oldPrice: '₹608', image: 'https://placehold.co/250x250/fafafa/000?text=Facewash' },
+
+const deals = [
+  { 
+    title: 'Whisky smoke & mafia combo 50ml each', 
+    price: '₹427', 
+    oldPrice: '₹1498',
+    imageSrc: '/images/whis.png',
+    href: '#'
+  },
+  { 
+    title: 'Charcoal facewash & peel off mask combo', 
+    price: '₹170', 
+    oldPrice: '₹608',
+    imageSrc: '/images/char.png',
+    href: '#'
+  },
+  { 
+    title: 'Aircase vegan leather travel kit', 
+    price: '₹189', 
+    oldPrice: '₹999',
+    tag: 'Limited period offer',
+    imageSrc: '/images/bag.png',
+    href: '#'
+  },
+  { 
+    title: 'Charcoal facewash & peel off mask combo', 
+    price: '₹170', 
+    oldPrice: '₹608',
+    imageSrc: '/images/2.png', // Reusing image for example
+    href: '#'
+  },
 ];
-export default function BuykaroDeals() {
-    return (
-    <section className="px-4 py-8 bg-gray-50">
-        <h2 className="text-xl font-bold mb-4">Buykaro at Lowest Prices</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {deals_buykaro.map((deal, i) => (
-                <div key={i} className="bg-white p-3 rounded-lg shadow-sm flex flex-col">
-                    <img src={deal.image} alt={deal.name} className="w-full h-32 object-contain rounded-md bg-white"/>
-                    <h3 className="font-semibold text-sm h-12 mt-2 flex-grow">{deal.name}</h3>
-                    <p className="text-lg font-bold mt-2">{deal.price} <span className="text-sm line-through text-gray-400">{deal.oldPrice}</span></p>
-                    <button className="bg-gray-200 text-gray-800 font-bold w-full py-2 px-4 rounded-lg mt-3 text-sm hover:bg-gray-300">Grab Deal</button>
+
+const BuykaroDealCard = ({ deal }) => (
+    <a href={deal.href} className="relative flex-shrink-0 w-[85vw] max-w-[340px] sm:w-80 rounded-2xl p-4 overflow-hidden text-white
+                                  bg-gradient-to-br from-blue-500 to-indigo-600
+                                  transition-transform duration-300 hover:-translate-y-1">
+        
+        {deal.tag && <span className="absolute top-4 right-4 text-[11px] bg-red-600 font-bold px-3 py-1 rounded-full">{deal.tag}</span>}
+
+        <div className="relative z-10 flex flex-col h-full">
+            <div className="bg-white p-2 rounded-md self-start">
+                <img src="/images/buykaro.png" alt="Buykaro Logo" className="h-4" />
+            </div>
+            
+            <div className="flex-grow grid grid-cols-2 items-center gap-4">
+                {/* Left Column: Text */}
+                <div className="flex flex-col">
+                    <h3 className="text-lg font-bold leading-tight">{deal.title}</h3>
                 </div>
-            ))}
+
+                {/* Right Column: Image */}
+                <div className="flex items-center justify-center h-full">
+                    <img src={deal.imageSrc} alt={deal.title} className="max-h-28 w-auto object-contain"/>
+                </div>
+            </div>
+
+            <div className="flex justify-between items-center mt-2">
+                <p className="text-xl font-extrabold">
+                    {deal.price} 
+                    <span className="text-base line-through text-blue-200 font-medium ml-2">{deal.oldPrice}</span>
+                </p>
+                <button className="bg-white text-blue-700 font-bold py-2 px-6 rounded-lg text-sm hover:bg-gray-200 transition-colors">
+                    Grab Deal
+                </button>
+            </div>
         </div>
+    </a>
+);
+
+export default function BuykaroDeals() {
+  return (
+    <section className="py-8 w-full overflow-hidden bg-gray-50">
+      <div className="flex justify-between items-center mb-6 px-4">
+        <h2 className="text-xl font-bold text-gray-800">Buykaro at Lowest Prices</h2>
+        <a href="#" className="text-blue-500 font-semibold text-sm flex items-center">
+          View All <span className="ml-1">→</span>
+        </a>
+      </div>
+      
+      <div className="flex space-x-4 overflow-x-auto pb-4 pl-4 pr-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        {deals.map((deal, index) => (
+          <BuykaroDealCard key={index} deal={deal} />
+        ))}
+      </div>
     </section>
-)};
+  );
+};

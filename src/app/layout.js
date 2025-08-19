@@ -5,7 +5,7 @@ import ThemeRegistry from '../theme/ThemeRegistry'; // <-- IMPORT
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'CashKaro Replica',
+  title: 'CashKaro',
   description: 'Built with Next.js and Tailwind CSS',
 };
 
